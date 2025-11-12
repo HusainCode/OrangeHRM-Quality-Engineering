@@ -72,10 +72,15 @@ Suggested commands (after you add tests):
 - Nightly: full cross-browser + optional Allure publish  
 Artifacts uploaded: HTML report, traces, screenshots, videos.
 
-## Project Layout (recommended)
-├─ pages/ # Page Objects (Login, Dashboard, PIM, Header)
-├─ tests/ # Test suites mapped to IDs above
-├─ config/ # settings, .env.example
-├─ utils/ # data helpers (random names)
-├─ reports/ # HTML outputs
-└─ .github/workflows/ # CI definition
+
+### 🧩 Folder Overview
+
+- **`pages/`** — Reusable Page Object classes encapsulating UI locators and actions.  
+- **`tests/`** — End-to-end Pytest suites for functional and regression coverage.  
+- **`config/`** — Environment variables, credentials, and configuration files.  
+- **`utils/`** — Shared helpers for random data, assertions, and utilities.  
+- **`reports/`** — HTML, JSON, and Allure test reports for traceability.  
+- **`.github/workflows/`** — GitHub Actions CI/CD pipelines for automated testing.
+
+---.
+
