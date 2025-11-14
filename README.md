@@ -1,8 +1,6 @@
 # OrangeHRM Playwright QA (Python)
 
-![CI](https://github.com/yourname/ORANGEHRM-QUALITY-ENGINEERING/actions/workflows/ci.yml/badge.svg)
-![Browsers](https://img.shields.io/badge/Browsers-Chromium%20%7C%20Firefox%20%7C%20WebKit-informational)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![CI](https://github.com/<your-username>/<your-repo>/actions/workflows/ci.yml/badge.svg)
 
 Professional QA automation demonstration using **Playwright + Pytest** against the public **OrangeHRM Demo** site.  
 Focus: clean Page Object Model, reliable tests, CI, and reporting—built to mirror a real QA workflow.
