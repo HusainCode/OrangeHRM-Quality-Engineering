@@ -1,0 +1,9 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "pylint.disable": [
+        "missing-class-docstring",
+        "missing-function-docstring",
+        "attribute-defined-outside-init"
+    ]
+}
