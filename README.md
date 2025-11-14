@@ -1,6 +1,6 @@
 # OrangeHRM Playwright QA (Python)
 
-![CI](https://img.shields.io/badge/CI-GitHub_Actions-blue)
+![CI](https://github.com/yourname/ORANGEHRM-QUALITY-ENGINEERING/actions/workflows/ci.yml/badge.svg)
 ![Browsers](https://img.shields.io/badge/Browsers-Chromium%20%7C%20Firefox%20%7C%20WebKit-informational)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
