@@ -1,27 +1,39 @@
-from playwright.sync_api import sync_playwright, expect
+import pytest
+from playwright.sync_api import expect
+from pages.login_page import LoginPage
 
 
-class TestOrangeHRMLogin:
-    def setup_method(self):
-        self.url = "https://opensource-demo.orangehrmlive.com/"
-        self.username = "Admin"
-        self.password = "admin123"
+# ---------------------------
+# VALID LOGIN TEST
+# ---------------------------
+def test_valid_login(page):
+    login = LoginPage(page)
 
-    def test_login(self, headless=True):
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=headless)
-            page = browser.new_page()
+    login.navigate()
+    
+    #login.login(USERNAME, PASSWORD)  # use global credentials so tests don't break if login changes
+    login.login("Admin", "admin123") 
 
-            # Open login page
-            page.goto(self.url)
+    expect(page).to_have_url(lambda u: "dashboard" in u)
 
-            # Fill credentials
-            page.get_by_placeholder("Username").fill(self.username)
-            page.get_by_placeholder("Password").fill(self.password)
 
-            # Click login button
-            page.get_by_role("button", name="Login").click()
+# ---------------------------
+# INVALID LOGIN TESTS (DATA-DRIVEN)
+# ---------------------------
+@pytest.mark.parametrize(
+    "username,password",
+    [
+        ("WrongUser", "admin123"),
+        ("Admin", "wrongpass"),
+        ("", "admin123"),
+        ("Admin", ""),
+        ("", ""),
+    ]
+)
+def test_invalid_login(page, username, password):
+    login = LoginPage(page)
 
-            print("Login test passed successfully!")
+    login.navigate()
+    login.login(username, password)
 
-            browser.close()
+    login.assert_login_error()
