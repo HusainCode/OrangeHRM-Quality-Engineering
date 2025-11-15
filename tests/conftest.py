@@ -3,15 +3,21 @@ from playwright.sync_api import sync_playwright
 
 
 @pytest.fixture(scope="session")
-def browser():
+def playwright_instance():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        yield browser
-        browser.close()
+        yield p
+
+
+@pytest.fixture(scope="session")
+def browser(playwright_instance):
+    browser = playwright_instance.chromium.launch(headless=True)
+    yield browser
+    browser.close()
 
 
 @pytest.fixture
 def page(browser):
-    page = browser.new_page()
+    context = browser.new_context()
+    page = context.new_page()
     yield page
-    page.close()
+    context.close()
