@@ -1,7 +1,5 @@
 # OrangeHRM Playwright QA (Python)
 
-# OrangeHRM Playwright QA (Python)
-
 ![Test Pipeline](https://github.com/HusainCode/OrangeHRM-Quality-Engineering/actions/workflows/ci.yml/badge.svg?branch=main&event=push)
 
 Professional QA automation demonstration using **Playwright + Pytest** against the public **OrangeHRM Demo** site.  
@@ -33,14 +31,23 @@ Focus: clean Page Object Model, reliable tests, CI, and reporting—built to mir
 - **CI:** GitHub Actions (Ubuntu), matrix: Chromium/Firefox/WebKit
 - **Artifacts:** HTML report, Playwright trace/screenshot/video, optional Allure
 
-## Test Design & IDs
+### Login
 
-- **LOGIN-001** — Valid login → Dashboard visible
-- **LOGIN-002** — Invalid login → “Invalid credentials” shown
+- **LOGIN-001** — Valid login → Dashboard visible ✔️
+- **LOGIN-002** — Invalid credentials → “Invalid credentials” shown ✔️
+- **LOGIN-003** — Username missing → “Required” shown ✔️
+- **LOGIN-004** — Password missing → “Required” shown ✔️
+- **LOGIN-005** — Both fields missing → “Required” messages shown ✔️
+
+### PIM
+
 - **PIM-ADD-001** — Create employee (min fields) → success toast
 - **PIM-VAL-001** — Save blocked when required field missing
 - **PIM-LIST-001** — New employee appears via search/filter
 - **PIM-DEL-001** — Delete employee → success toast + not listed
+
+### Navigation
+
 - **NAV-LOGOUT-001** — Logout returns to login
 
 ## Reliability Practices

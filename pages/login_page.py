@@ -4,8 +4,8 @@ from playwright.sync_api import Page, expect
 class LoginPage:
     URL = "https://opensource-demo.orangehrmlive.com/"
 
-    def __init__(self, page: Page):
-        self.page = page
+    def __init__(self, loginPage: Page):
+        self.page = loginPage
 
     # ---------- Navigation ----------
     def navigate(self):
