@@ -1,0 +1,40 @@
+# ============================================================================
+# OrangeHRM Test Automation Framework - Dependencies
+# ============================================================================
+
+# Core Testing Framework
+pytest==8.3.3
+pytest-playwright==0.5.2
+playwright==1.48.0
+
+# Pytest Plugins
+pytest-html==4.1.1              # HTML test reports
+pytest-xdist==3.6.1             # Parallel test execution
+pytest-rerunfailures==14.0      # Retry flaky tests
+pytest-timeout==2.3.1           # Test timeout management
+pytest-metadata==3.1.1          # Test metadata for reports
+
+# Code Coverage (optional)
+pytest-cov==5.0.0               # Code coverage reports
+coverage[toml]==7.6.4           # Coverage configuration
+
+# Environment and Configuration
+python-dotenv==1.0.1            # Environment variable management
+
+# Utilities
+Faker==30.8.2                   # Additional test data generation (optional)
+
+# API Testing (optional)
+requests==2.32.3                # HTTP library for API tests
+
+# Reporting (optional - for Allure reports)
+allure-pytest==2.13.5           # Allure reporting integration
+
+# Development Tools (optional)
+black==24.10.0                  # Code formatter
+flake8==7.1.1                   # Linter
+mypy==1.13.0                    # Type checker
+pre-commit==4.0.1               # Git pre-commit hooks
+
+# Performance Testing (optional)
+pytest-benchmark==4.0.0         # Performance benchmarking
