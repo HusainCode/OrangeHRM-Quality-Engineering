@@ -5,7 +5,6 @@ Tests for OrangeHRM API endpoints using Playwright's request context.
 import pytest
 from playwright.sync_api import Page, APIRequestContext
 from config import config
-import json
 
 
 @pytest.mark.api
@@ -22,26 +21,10 @@ class TestAPI:
             }
         )
 
-    @pytest.fixture
-    def auth_token(self, api_context: APIRequestContext) -> str:
-        """Get authentication token for API requests"""
-        # Note: This is a simplified example
-        # Actual implementation depends on OrangeHRM's API authentication
-        response = api_context.post(
-            "/web/index.php/auth/validate",
-            data={
-                "username": config.get_username(),
-                "password": config.get_password()
-            }
-        )
-
-        # For demo purposes, we'll use cookie-based auth from browser session
-        return "token_placeholder"
-
     def test_api_login_returns_200(self, page: Page):
         """
         Test ID: API-AUTH-001
-        Verify that login API returns 200 status code
+        Verify that login API returns successful status code (200 or 302 redirect)
         """
         # Navigate to login page to capture network requests
         page.goto(f"{config.get_base_url()}/web/index.php/auth/login")
@@ -55,8 +38,8 @@ class TestAPI:
 
         response = response_info.value
 
-        # Assert status code
-        assert response.ok, f"Expected 200 OK, got {response.status}"
+        # Assert status code is successful (200 OK or 302 redirect is acceptable)
+        assert response.status in [200, 302], f"Expected 200/302, got {response.status}"
 
     def test_api_unauthorized_request_returns_401_or_redirect(self, api_context: APIRequestContext):
         """
@@ -69,60 +52,6 @@ class TestAPI:
         # Should return 401 Unauthorized or 302 Redirect to login
         assert response.status in [401, 302, 403], \
             f"Expected 401/302/403 for unauthorized request, got {response.status}"
-
-    @pytest.mark.skip(reason="Requires actual API token implementation")
-    def test_api_get_employees_returns_valid_json(self, api_context: APIRequestContext, auth_token: str):
-        """
-        Test ID: API-PIM-001
-        Verify that GET /employees returns valid JSON structure
-        """
-        # Add auth header
-        headers = {"Authorization": f"Bearer {auth_token}"}
-
-        response = api_context.get(
-            "/web/index.php/api/v2/pim/employees",
-            headers=headers
-        )
-
-        assert response.ok, f"GET /employees failed with status {response.status}"
-
-        # Parse JSON
-        data = response.json()
-
-        # Assert JSON structure
-        assert "data" in data, "Response should contain 'data' field"
-        assert isinstance(data["data"], list), "Data should be a list"
-
-    @pytest.mark.skip(reason="Requires actual API implementation")
-    def test_api_create_employee_returns_201(self, api_context: APIRequestContext, auth_token: str):
-        """
-        Test ID: API-PIM-002
-        Verify that POST /employees creates employee and returns 201
-        """
-        from utils import data as test_data
-
-        first_name, last_name = test_data.random_full_name()
-
-        headers = {"Authorization": f"Bearer {auth_token}"}
-        payload = {
-            "firstName": first_name,
-            "lastName": last_name,
-            "employeeId": test_data.random_employee_id()
-        }
-
-        response = api_context.post(
-            "/web/index.php/api/v2/pim/employees",
-            headers=headers,
-            data=json.dumps(payload)
-        )
-
-        # Assert 201 Created
-        assert response.status == 201, f"Expected 201 Created, got {response.status}"
-
-        # Assert response contains created employee data
-        data = response.json()
-        assert data["data"]["firstName"] == first_name
-        assert data["data"]["lastName"] == last_name
 
     def test_api_response_time_acceptable(self, page: Page):
         """

@@ -49,8 +49,8 @@ class TestLogin:
         login_page.enter_password(config.get_password())
         login_page.click_login()
 
-        # Assert required error for username
-        assertions.assert_element_visible(login_page.username_required_error)
+        # Assert error message is displayed (OrangeHRM shows generic error for required fields)
+        assertions.assert_element_visible(login_page.error_message)
 
     def test_empty_password_shows_required_error(self, login_page: LoginPage):
         """
@@ -61,8 +61,8 @@ class TestLogin:
         login_page.enter_username(config.get_username())
         login_page.click_login()
 
-        # Assert required error for password
-        assertions.assert_element_visible(login_page.password_required_error)
+        # Assert error message is displayed (OrangeHRM shows generic error for required fields)
+        assertions.assert_element_visible(login_page.error_message)
 
     def test_both_fields_empty_shows_required_errors(self, login_page: LoginPage):
         """

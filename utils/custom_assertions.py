@@ -88,8 +88,9 @@ class CustomAssertions:
     @staticmethod
     def assert_no_records_found(page: Page):
         """Assert 'No Records Found' message appears"""
-        message = page.locator('.oxd-toast-content, .oxd-text')
-        expect(message).to_contain_text("No Records Found", timeout=10000)
+        # Check for either a toast message or the "No Records Found" text in the table area
+        no_records = page.locator('text="No Records Found"').first
+        expect(no_records).to_be_visible(timeout=10000)
 
     @staticmethod
     def assert_table_row_count(page: Page, count: int, table_selector: str = '.oxd-table-card'):

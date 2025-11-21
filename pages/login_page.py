@@ -71,6 +71,8 @@ class LoginPage(BasePage):
 
     def click_login(self):
         """Click login button"""
+        # Ensure button is visible and ready
+        self.login_button.wait_for(state="visible", timeout=5000)
         self.login_button.click()
         self.wait_for_page_load()
 
@@ -78,6 +80,8 @@ class LoginPage(BasePage):
         """Perform complete login action"""
         self.enter_username(username)
         self.enter_password(password)
+        # Small wait to ensure form is ready
+        self.page.wait_for_timeout(200)
         self.click_login()
 
     def get_error_text(self) -> str:
